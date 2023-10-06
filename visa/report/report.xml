@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="report_client_paperformat" model="report.paperformat">
+        <field name="name">client custom paper format</field>
+        <field name="format">A4</field>
+        <field name="orientation">Landscape</field>
+        <field name="page_height">0</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_spacing">35</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="visa_report_client_detail" model="ir.actions.report">
+
+        <field name="name">Visa Report</field>
+        <field name="model">visa.application</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">visa.report_client_detail</field>
+        <field name="report_file">visa.report_client_detail</field>
+        <field name="binding_model_id" ref="model_visa_application"/>
+        <field name="binding_type">report</field>
+        <field name="attachment_use">True</field>
+<!--        if true, only report generate first time , reprinted from stored report, for legal issue-->
+        <field name="paperformat_id" ref="visa.report_client_paperformat"/>
+    </record>
+
+</odoo>

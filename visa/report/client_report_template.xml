@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_client_detail">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page"  style="font-size: 24px;">
+                        <div class="oe_structure"/>
+                        <div class="row">
+                            <div class="col--2" style="background-color:red;">
+                            </div>
+                            <center>
+                                <div class="col-8" style="background-color:pink;">
+                                    <table class="table" style="border:1px solid black;">
+                                        <tr>
+                                            <td>
+                                                <div class="section">
+                                                   <div>
+
+                                                   </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <table width="50%">
+                                                    <tr>
+                                                        <td >
+                                                            <p style="text-align:right;"><strong>Name:</strong></p>
+                                                        </td>
+                                                        <td>
+                                                            <p style="text-align:left;" t-field="o.name"/>
+                                                        </td>
+                                                         <td>
+                                                            <p style="text-align:right;"><strong>Age:</strong></p>
+                                                        </td>
+                                                        <td>
+                                                            <p style="text-align:left;" t-field="o.age"/>
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <p style="text-align:right;"><strong>Gender:</strong></p>
+                                                        </td>
+                                                        <td>
+                                                            <p style="text-align:left;" t-field="o.gender"/>
+                                                        </td>
+                                                        <td>
+                                                            <p style="text-align:right;"><strong>Ref:</strong></p>
+                                                        </td>
+                                                        <td>
+                                                            <p style="text-align:left;" t-field="o.ref"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <p style="text-align:right;">
+                                                                <strong>adult:</strong>
+                                                            </p>
+                                                        </td>
+                                                        <td>
+                                                            <div t-if="o.adult==true">
+                                                                <p style="text-align:left;">Yes</p>
+                                                            </div>
+                                                            <div t-if="o.adult==false">
+                                                                <p style="text-align:left;">No</p>
+                                                            </div>
+                                                        </td>
+
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </center>
+                        </div>
+<!--                        <div class="countries">-->
+<!--&lt;!&ndash;                            <span t-field="o.visa_country_ids"/>&ndash;&gt;-->
+<!--                            <h2>Country</h2>-->
+<!--                            <table style="border:1px solid black;" width="60%">-->
+<!--                                <tr t-foreach='o.visa_country_ids' t-as='line' style="border:1px solid black;">-->
+
+<!--                                    <td>-->
+<!--                                        <span t-field="line.country_code"/>-->
+<!--                                    </td>-->
+<!--                                    <td style="border:1px solid black;">-->
+<!--                                        <span t-field="line.country"/>-->
+<!--                                    </td>-->
+
+<!--                                </tr>-->
+<!--                            </table>-->
+<!--                        </div>-->
+
+                        <div class="tags">
+                            <h2>Visa Types</h2>
+<!--                                        <t t-foreach="o.tag_ids" t-as="line">-->
+<!--                                             <span t-field="line.tag_id"/>-->
+<!--                                        </t>-->
+<!--                                        no need for this foreach  beacuseonly one field , there is a already foreach for t-as = o-->
+<!--                            <span t-field="o.tag_ids"/>-->
+                            <span t-field="o.visa_type_tag"/>
+                        </div>
+                        <div class="t-country">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h2>Country</h2>
+                                </div>
+                                <div class="col-6">
+                                    <h2>Country Code</h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <t t-foreach="o.country" t-as="line">
+                                    <div class="col-6">
+
+                                        <span t-field="line.country2"/>
+                                    </div>
+
+                                    <div class="col-6">
+
+                                        <span t-field="line.country_code"/>
+                                    </div>
+                                </t>
+                            </div>
+
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

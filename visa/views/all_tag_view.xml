@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+        <record id="view_all_tag_tree" model="ir.ui.view">
+            <field name="name">all.tag.tree</field>
+            <field name="model">all.tag</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name = "tag_name"/>
+
+<!--                    <field name="country"/>-->
+
+
+                </tree>
+            </field>
+        </record>
+        <record id="view_all_tag_form" model="ir.ui.view">
+            <field name="name">all.tag.from</field>
+            <field name="model">all.tag</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="tag_name"/>
+                                <field name="visa_type_tag" />
+
+<!--                                <field name="country"/>-->
+
+
+                            </group>
+
+                        </group>
+                    </sheet>
+                </form>
+
+            </field>
+        </record>
+    <record id="action_all_tag" model="ir.actions.act_window">
+        <field name="name">all tag</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">all.tag</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>create tag</p>
+        </field>
+
+    </record>
+    <menuitem id="visa_all_tag"
+              name="all _tag"
+              action="action_all_tag"
+              parent="visa_configuration"
+              sequence="20"/>
+</odoo>

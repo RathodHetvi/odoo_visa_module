@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template inherit_id="report_client_detail" id="report_client_detail_extend">
+        <xpath expr="//div[hasclass('section')]" position="after"><!--before/after/replace--> <!--there will be here problem change somethink in section-->
+            <div class="page" style="font-size: 24px;">
+                <div class="oe_structure"/>
+                <div class="row">
+                    <div class="col-6">
+                        <h1>Client</h1>
+        <!--                <div class="photo">-->
+        <!--                    <table style=" border : 1px solid black;">-->
+        <!--                        <tr>-->
+        <!--                            <td>-->
+        <!--                                <img src="" alt="image"/>-->
+        <!--                            </td>-->
+        <!--                        </tr>-->
+        <!--                    </table>-->
+        <!--                </div>-->
+                    </div>
+                    <div class="col-6">
+                        <t t-foreach="docs" t-as="o">
+                                <img t-att-src="image_data_uri(o.image)" t-if="o.image" alt="client image" width="80" height="80"/>
+                                <div t-field="o.image"
+                                     t-options="{'widget':'image','img-style':'width:100px;height:100px;','width':50,'height':50}"/>
+                        </t>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </xpath>
+
+    </template>
+</odoo>

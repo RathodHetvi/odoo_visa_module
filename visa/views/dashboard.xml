@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="act_book_appointment" model="ir.actions.act_window">
+        <field name="name">Book Appointments</field>
+        <field name="res_model">visa.appointment</field>
+        <field name="view_mode">calendar</field>
+        <field name="view_id" ref="visa.appointment_calendar"/>
+    </record>
+    <record id="act_client_appointments" model="ir.actions.act_window">
+        <field name="name">Client Appointments</field>
+        <field name="res_model">visa.appointment</field>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="visa.appointment_graph"/>
+    </record>
+    <record id="act_client_list" model="ir.actions.act_window">
+        <field name="name">Clients</field>
+        <field name="res_model">visa.application</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="dashboard_form_view" model="ir.ui.view">
+        <field name="name">Dashboard Form</field>
+        <field name="model">board.board</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Dashboard">
+                <board style="1-2">
+                    <column>
+                        <action string="Client Appointment"
+                                name="%(visa.act_client_appointments)d"/>
+                        <action string="Client Records"
+                                name="%(visa.act_client_list)d"/>
+                    </column>
+                    <column>
+                         <action string="book appointment"
+                                name="%(visa.act_book_appointment)d"/>
+                    </column>
+                </board>
+            </form>
+        </field>
+    </record>
+    <record id="visa_dashboard" model="ir.actions.act_window">
+        <field name="name">Dashboard</field>
+        <field name="res_model">board.board</field>
+        <field name="view_mode">form</field>
+        <field name="usage">menu</field>
+        <field name="view_id" ref="dashboard_form_view"/>
+
+    </record>
+    <menuitem
+        name="Dashboard"
+        parent="visa_root_menu"
+        action="visa_dashboard"
+        sequence="0"
+        id="menu_dashboard"/>
+</odoo>

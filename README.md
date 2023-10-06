@@ -1,1 +1,1 @@
-# odoo_visa_module
+# odoo module

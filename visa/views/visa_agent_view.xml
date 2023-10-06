@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+        <record id="view_manager_agent_tree" model="ir.ui.view">
+            <field name="name">manager.agent.tree</field>
+            <field name="model">manager.agent</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="active" string="active"/>
+                    <field name="name" string="name"/>
+                    <field name="s_no" string="s_no"/>
+                    <field name="joined_date" string="joined_date"/>
+                    <field name="valid_till"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_manager_agent_form" model="ir.ui.view">
+            <field name="name">manager.agent.form</field>
+            <field name="model">manager.agent</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="active"/>
+                            <field name="name" string="name"/>
+                            <field name="s_no" string="s_no"/>
+                            <field name="joined_date" string="joined_date"/>
+                            <field name="valid_till"/>
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+
+        <record id="action_visa_manager_agent" model="ir.actions.act_window">
+            <field name="name">agent</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">manager.agent</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p>create agent</p>
+            </field>
+        </record>
+    <!--in manifest file first run menu_view after that run only you get run client_view , thats why here menu-items -->
+    <menuitem id="visa_agent"
+              name="agent"
+              action="action_visa_manager_agent"
+              parent="visa_manager"
+              sequence="20"/>
+</odoo>

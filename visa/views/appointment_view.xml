@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+        <record id="view_visa_appointment_tree" model="ir.ui.view">
+            <field name="name">visa.appointment.tree</field>
+            <field name="model">visa.appointment</field>
+            <field name="arch" type="xml">
+                <tree default_order="client_id desc"  decoration-success="state=='approved'" decoration-info="state in('draft','in_consultation') "
+                           decoration-danger="state=='cancelled'" >
+
+
+                    <field name="client_id"/>
+                    <field name="appointment_time"/>
+                    <field name="booking_date"/>
+                    <field name="state"
+                           decoration-success="state=='approved'" decoration-info="state in('draft','in_consultation') "
+                           decoration-danger="state=='cancelled'"
+                           widget="badge"/>
+                    <field name="role" groups="visa.group_visa_manager"/>
+
+
+                </tree>
+            </field>
+        </record>
+        <record id="view_visa_appointment_form" model="ir.ui.view">
+            <field name="name">visa.appointment.form</field>
+            <field name="model">visa.appointment</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+<!--                         options="{'clickable':'1'}" -->
+                        <button name="action_in_consultation" string="In Consultation" class="oe_highlight" type="object" states="draft"/>
+                        <button name="action_approve" string="Approve" type="object" class="oe_highlight" states="in_consultation"/>
+<!--                        <button name="%(action_cancel_appointment)d" string="Cancel" type="action" states="draft,in_consultation"/>-->
+                        <button name="action_cancel" string="cancel" type="object" states="draft,in_consultation"/>
+                        <button name="action_draft" string="Reset to Draft" class="oe_highlight" type="object" states="cancelled"/>
+
+                        <field name ="state" widget="statusbar" nolabel="1" statusbar_visible="draft,in_consultation,approved"/>
+                    </header>
+                    <sheet>
+                          <group>
+                              <group>
+                                  <field name="client_id" options="{'no_create': True}"/> <!--{'no_open': True}"-->
+                                  <field name = "ref"/>
+                                  <field name = "appointment_time"/>
+
+
+                              </group>
+                              <group>
+
+                                  <field name = "booking_date"/>
+
+
+                                  <button name="action_test" string="see all appointment " type="object" confirm="are you sure you want to redirect that page?"
+                                          class="oe_highlight"/>
+                                  <button name="%(visa.action_visa_application)d" string="Action Button"
+                                          confirm="Are you sure open the all clients?"
+                                          type="action" class="oe_highlight"/>
+                                  <field name="role" groups="visa.group_visa_manager"/>
+
+
+                              </group>
+                        </group>
+                         <notebook>
+                             <page string="Feedback" name="feedback">
+                                 <field name="feedback" placeholder="enter a feedback here"/>
+                             </page>
+                             <page name="reason" string="cancellation reason">
+                                 <field name="reason"/>
+                             </page>
+                         </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_visa_appointment_search" model="ir.ui.view">
+            <field name="name">visa.appointment.search</field>
+            <field name="model">visa.appointment</field>
+            <field name="arch" type="xml">
+                <search>
+
+
+
+                </search>
+            </field>
+        </record>
+        <record id="appointment_graph" model="ir.ui.view">
+            <field name="name">visa.appointment.graph</field>
+            <field name="model">visa.appointment</field>
+            <field name="arch" type="xml">
+<!--                <dashboard>-->
+<!--                    <group>-->
+<!--                        <widget name="pie_chart" title="appointment graph" attrs="{'groupby': 'client_id'}"/>-->
+<!--                    </group>-->
+<!--                </dashboard>-->
+                <graph string="Appointment graph" type="pie" sample="1">
+                    <field name="client_id"/>
+                </graph>
+            </field>
+        </record>
+        <record id="appointment_calendar" model="ir.ui.view">
+            <field name="name">visa.appointment.calendar</field>
+            <field name="model">visa.appointment</field>
+            <field name="arch" type="xml">
+                <calendar string="Appointment Calendar" date_start="booking_date" color="client_id" mode="month"     quick_add="True">
+                    <field name="client_id"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record id="action_visa_appointment" model="ir.actions.act_window">
+            <field name="name">appointment</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">visa.appointment</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p>create appointment</p>
+            </field>
+
+        </record>
+        <record id="action_mark_as_done" model="ir.actions.server">
+            <field name="name">mark_as_done</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_visa_appointment"/>
+            <field name="binding_model_id" ref="model_visa_appointment"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                for record in records:
+                    if record.state == "in_consultation":
+                        record.action_approve()
+
+            </field>
+        </record>
+    <!--in manifest file first run menu_view after that run only you get run client_view , thats why here menu-items -->
+    <menuitem id="visa_appointment"
+              name="appointments"
+              action="action_visa_appointment"
+              parent="visa_appointment_master"
+              sequence="10"/>
+</odoo>

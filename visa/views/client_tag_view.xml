@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+        <record id="view_client_tag_tree" model="ir.ui.view">
+            <field name="name">client.tag.tree</field>
+            <field name="model">client.tag</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name = "sequence"/>
+                    <field name="tag_id"/>
+<!--                    <field name="visa_type_tag"/>-->
+                    <field name ='country' filter_domain="['|',('client_ids.country','ilike',country),('client_ids.visa_type_tag','ilike',tag_id)]" decoration-success="(count_country&gt;1)" decoration-danger="(count_country==1)"/>
+                    <field name = "active"/>
+<!--                    <field name = "client_ids"/>-->
+
+                    <field name="count_country"/>
+
+
+                </tree>
+            </field>
+        </record>
+        <record id="view_client_tag_form" model="ir.ui.view">
+            <field name="name">client.tag.from</field>
+            <field name="model">client.tag</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                 <field name="client_ids" string="select a client">
+                                    <tree>
+                                        <field name="client_name"  filter_domain="['|',('client_ids','ilike',self)]"/>
+                                        <field name = "ref"/>
+                                        <field name="visa_type_tag" filter_domain="['|',('client_ids','ilike',self)]"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <field name="client_name"/>
+                                            <field name = "ref"/>
+                                            <field name="visa_type_tag"/>
+                                        </group>
+                                    </form>
+                                </field>
+                                <field name="sequence" string="client name"/>
+
+
+                                <field name="tag_id" widget="many2many_tags"/>#options="{'color_field':'color'}"
+<!--                                <field name="visa_type_tag"/>-->
+                                <field name="country" string="information" decoration-success="(count_country&gt;1)" decoration-danger="(count_country==1)" />
+
+
+
+                            </group>
+                            <group>
+                                <field name="active"/> <!-- widget="boolean_toggle"-->
+                                <field name="count_country" decoration-success="(count_country&gt;1)" decoration-danger="(count_country==1)" />
+<!--                                <field name="count_country"/>-->
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+
+            </field>
+        </record>
+    <record id="action_client_tag" model="ir.actions.act_window">
+        <field name="name">client tag</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">client.tag</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>create tag</p>
+        </field>
+
+    </record>
+    <menuitem id="visa_client_tag"
+              name="tags"
+              action="action_client_tag"
+              parent="visa_configuration"
+              sequence="10"/>
+</odoo>

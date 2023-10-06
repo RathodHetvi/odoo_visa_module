@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+        <record id="view_country_name_tree" model="ir.ui.view">
+            <field name="name">country.name.tree</field>
+            <field name="model">country.name</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="country2" string="country name"/>
+                    <field name = "country_code" string="country_code"/>
+                    <field name="client" widget="many2many_tags" decoration-success="(count_client&gt;1)" decoration-danger="(count_client==1)"/>
+                    <field name="count_client" invisible="1"/>
+<!--                    <field name="tag_id"/>-->
+<!--                    <field name="visa_type_tag" widget="many2many_tags"/>-->
+
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_country_name_form" model="ir.ui.view">
+            <field name="name">country.name.form</field>
+            <field name="model">country.name</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+
+                            <field name="country2"/>
+                            <field name="country_code"/>
+                            <field name="client" decoration-success="(count_client&gt;1)" decoration-danger="(count_client==1)"/>
+                            <field name="count_client" invisible="1"/>
+<!--                            <field name="visa_type_tag"/>-->
+<!--                            <field name="tag_id" />-->
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_country_name_kanban" model="ir.ui.view">
+            <field name="name">country.name.kanban</field>
+            <field name="model">country.name</field>
+            <field name="arch" type="xml">
+                <kanban class="o_country_name_kanban">
+<!--                    <fields name="country"/>-->
+<!--                    <fields name="country_code"/>-->
+
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div>
+                                <h4>
+                                    <a type="open"><field name="country2"  decoration-success="(count_client&gt;1)" decoration-danger="(count_client==1)"/></a>
+                                </h4>
+                                <ul>
+                                    <li>
+                                        <h6>country_code: <field name="country_code"/></h6>
+                                    </li>
+                                    <li>
+                                        <h6>clients:<field name="client" widget="many2many_tags" decoration-success="(count_client&gt;1)" decoration-danger="(count_client==1)"/></h6>
+                                    </li>
+
+                                        <field name="count_client" invisible="1"/>
+
+
+                                </ul>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+
+        </record>
+
+
+        <record id="action_country_name" model="ir.actions.act_window">
+            <field name="name">country</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">country.name</field>
+            <field name="view_mode">kanban,form,tree</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p>create country</p>
+            </field>
+
+        </record>
+    <!--in manifest file first run menu_view after that run only you get run client_view , thats why here menu-items -->
+    <menuitem id="country_name"
+              name="country"
+              action="action_country_name"
+              parent="visa_country"
+              sequence="10"/>
+</odoo>

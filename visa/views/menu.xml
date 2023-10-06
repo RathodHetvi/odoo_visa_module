@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <menuitem id="visa_root_menu"
+              name = "visa"
+              sequence = "0"/>
+    <menuitem id="visa_client_master"
+              name = "client"
+              parent="visa_root_menu"
+              sequence="1"/>
+    <menuitem id="visa_appointment_master"
+              name="appointment"
+              parent="visa_root_menu"
+              sequence="10"/>
+    <menuitem id="visa_configuration"
+              name="configurations"
+              parent="visa_root_menu"
+              sequence="20"/>
+
+    <menuitem id="visa_country"
+              name="countries"
+              parent="visa_root_menu"
+              sequence="10"/>
+
+    <menuitem id="visa_manager"
+              name="managers"
+              parent="visa_root_menu"
+              sequence="30"/>
+
+
+    <menuitem id="visa_cancel_appointment"
+              name="cancellation"
+              parent="visa_appointment_master"
+              action = "action_cancel_appointment"
+              sequence="20"/>
+
+
+
+
+</odoo>
